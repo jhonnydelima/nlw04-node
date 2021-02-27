@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
+import { AppError } from "../errors/AppError";
 import { SurveyRepository } from "../repositories/SurveyRepository";
 
 class SurveyController {
@@ -20,8 +21,12 @@ class SurveyController {
 
     async show(req: Request, res: Response) {
         const surveyRepository = getCustomRepository(SurveyRepository);
-        
+
         const all = await surveyRepository.find();
+
+        if (!all) {
+            throw new AppError("There are no surveys", 404);
+        }
 
         return res.status(200).json(all);
     }

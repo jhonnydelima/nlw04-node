@@ -15,6 +15,10 @@ const npsController = new NpsController();
 
 // USER
 router.post('/users', userController.create);
+router.put('/users/:id', userController.update);
+router.delete('/users/:id', userController.delete);
+router.get('/users/:id', userController.getUser);
+router.get('/users', userController.getAllUsers);
 
 // SURVEY
 router.post('/surveys', surveyController.create);
